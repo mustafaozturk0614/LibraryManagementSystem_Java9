@@ -25,6 +25,14 @@ public class Book {
     private EStatus status=EStatus.AVAILABLE;
     private int pageCount;
     @ManyToOne(cascade = CascadeType.ALL)
+    // kendimiz bir ara tabolo olusturup ozelliklerini veriyoruz
+//    @JoinTable(
+//              name="yazar_kitap",
+//            joinColumns = @JoinColumn(name = "kitap_id"),
+//            inverseJoinColumns = @JoinColumn(name = "yazar_id")
+//    )
+    //otomatik olsuan ara tablodaki colon uzerinde değişiklik yapmak için
+    //@JoinColumn(name = "my_author_id",referencedColumnName = "id")
     private  Author author;
 
 }

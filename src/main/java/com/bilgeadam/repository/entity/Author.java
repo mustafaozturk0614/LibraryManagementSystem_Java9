@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,7 +20,8 @@ public class Author {
     private Long id;
     private  String firstName;
     private  String lastName;
-    @OneToMany
+    @OneToMany(mappedBy = "author")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<Book> books;
 
 

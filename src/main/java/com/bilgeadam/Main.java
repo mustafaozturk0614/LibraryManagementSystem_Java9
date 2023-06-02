@@ -2,9 +2,11 @@ package com.bilgeadam;
 
 import com.bilgeadam.controller.AuthorController;
 import com.bilgeadam.controller.BookController;
-import com.bilgeadam.repository.entity.Author;
-import com.bilgeadam.repository.entity.Book;
+import com.bilgeadam.controller.UserController;
+import com.bilgeadam.repository.entity.*;
 import com.bilgeadam.repository.enums.EBookType;
+
+import java.util.List;
 
 /*
 1- Kitap odunc(kiralama) alma  projesi
@@ -22,10 +24,33 @@ public class Main {
 
         Book book=Book.builder().
         title("Hür Sehrin insanları").bookType(EBookType.HISTORY).author(author).build();
+        Book book2=Book.builder().
+        title("Esir Sehrin insanları").bookType(EBookType.HISTORY).author(author).build();
+        Book book3=Book.builder().
+                title("Yorgun savascı").bookType(EBookType.HISTORY).author(author).build();
+        author.setBooks(List.of(book,book2,book3));
 
-        BookController bookController=new BookController();
-        bookController.createBook(book);
+        authorController.createAuthor(author);
 
+
+
+//        BookController bookController=new BookController();
+//        bookController.createBook(book);
+
+        //// user olusturma
+        User user= User.builder().username("musty")
+                .userInformation( UserInformation.builder().firstName("Mustafa")
+                        .lastName("Ozturk")
+                        .address("Ankara")
+                        .phoneNumber("5555-555-55-5")
+                        .about("hakkımda........")
+                        .addresses(List.of(Address.builder().country("Turkiye").city("Ankara").build(),
+                                Address.builder().country("Türkiye").city("Balıkesir").build()))
+                        .build())
+                .build();
+        //
+        UserController userController=new UserController();
+        userController.createUser(user);
 
     }
 }
