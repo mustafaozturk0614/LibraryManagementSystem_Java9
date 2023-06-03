@@ -17,7 +17,9 @@ public class BookController {
     public Book createBook(Book book){
         return  bookService.save(book);
     }
-
+    public Book update(Book book){
+        return  bookService.update(book);
+    }
     public List<Book> findAll(){
         return  bookService.findAll();
     }

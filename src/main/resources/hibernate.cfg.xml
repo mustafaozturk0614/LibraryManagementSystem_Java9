@@ -10,8 +10,8 @@
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5858/lbsDb</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">root</property>
-        <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.format_sql">true</property>
+<!--        <property name="hibernate.show_sql">true</property>-->
+<!--        <property name="hibernate.format_sql">true</property>-->
         <property name="hibernate.hbm2ddl.auto">create</property>
     </session-factory>
 

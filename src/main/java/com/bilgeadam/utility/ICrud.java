@@ -23,5 +23,6 @@ public interface ICrud<T, ID> extends IMyRepository<T, ID> {
     List<T> findByEntity(T entity);
 
     List<T> findAllByColumnNameAndValue(String columnName, String columnValue);
-
+    public <S extends T> S update(S entity);
+    public <S extends T> Iterable<S> updateAll(Iterable<S> entites);
 }

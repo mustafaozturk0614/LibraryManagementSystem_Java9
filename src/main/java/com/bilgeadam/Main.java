@@ -2,10 +2,13 @@ package com.bilgeadam;
 
 import com.bilgeadam.controller.AuthorController;
 import com.bilgeadam.controller.BookController;
+import com.bilgeadam.controller.BorrowController;
 import com.bilgeadam.controller.UserController;
 import com.bilgeadam.repository.entity.*;
 import com.bilgeadam.repository.enums.EBookType;
+import com.bilgeadam.repository.enums.EStatus;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /*
@@ -15,8 +18,17 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args) {
+       createData();
+       BorrowController borrowController=new BorrowController();
+       borrowController.findAll().forEach(System.out::println);
+       Borrow borrow=borrowController.finById(1L);
+      // borrow.getBook().getAuthor().getBooks().forEach(System.out::println);
 
+       AuthorController authorController=new AuthorController();
+       List<Book> list   =   authorController.findById(1L).get().getBooks();
 
+        Author author= Author.builder().books(list).build();
+        author.getBooks().forEach(System.out::println);
     }
 
     public static void  createData(){
@@ -39,7 +51,7 @@ public class Main {
         Book book6= Book.builder().title("Sisifos Söyleni").bookType(EBookType.NOVEL).author(author1).build();
         author1.setBooks(List.of(book4,book5,book6));
         authorController.createAuthor(author1);
-//        BookController bookController=new BookController();
+       BookController bookController=new BookController();
 //        bookController.createBook(book);
 
         //// user olusturma
@@ -83,6 +95,49 @@ public class Main {
         userController.createUser(user);
         userController.createUser(user2);
         userController.createUser(user3);
+
+
+
+        Borrow borrow1= Borrow.builder()
+                .book(book)
+                .user(user)
+                .period(5)
+                .borrowDate(LocalDate.now().minusDays(8))
+                .build();
+        /// once 5 gunluk kiralama yaptık
+        book.setStatus(EStatus.UNAVAILABLE);
+        bookController.update(book);
+        // daha sonra 5 gun sonra kiralanan kitabın geri iade oldugu bir senaryo olusturduk
+        book.setStatus(EStatus.AVAILABLE);
+        bookController.update(book);
+                //daha sonra aynı kitabı başka bir kullanıcı tekrardan kiraldı
+        Borrow borrow2= Borrow.builder()
+                .book(book)
+                .user(user2)
+                .period(5)
+                .borrowDate(LocalDate.now().minusDays(2))
+                .build();
+        book.setStatus(EStatus.UNAVAILABLE);
+        bookController.update(book);
+        Borrow borrow3= Borrow.builder()
+                .book(book6)
+                .user(user)
+                .period(10)
+                .build();
+        book6.setStatus(EStatus.UNAVAILABLE);
+        bookController.update(book6);
+        Borrow borrow4= Borrow.builder()
+                .book(book5)
+                .user(user)
+                .period(10)
+                .build();
+        book5.setStatus(EStatus.UNAVAILABLE);
+        bookController.update(book5);
+        BorrowController borrowController=new BorrowController();
+        borrowController.createBorrow(borrow1);
+        borrowController.createBorrow(borrow2);
+        borrowController.createBorrow(borrow3);
+        borrowController.createBorrow(borrow4);
 
     }
 }

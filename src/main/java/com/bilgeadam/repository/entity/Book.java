@@ -3,6 +3,7 @@ package com.bilgeadam.repository.entity;
 
 import com.bilgeadam.repository.enums.EBookType;
 import com.bilgeadam.repository.enums.EStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,8 +21,10 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Enumerated(EnumType.STRING)
     private EBookType bookType;
     @Builder.Default
+    @Enumerated(EnumType.STRING)
     private EStatus status=EStatus.AVAILABLE;
     private int pageCount;
     @ManyToOne(cascade = CascadeType.ALL)
@@ -33,6 +36,7 @@ public class Book {
 //    )
     //otomatik olsuan ara tablodaki colon uzerinde değişiklik yapmak için
     //@JoinColumn(name = "my_author_id",referencedColumnName = "id")
+
     private  Author author;
 
 }

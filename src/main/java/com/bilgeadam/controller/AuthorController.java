@@ -6,6 +6,7 @@ import com.bilgeadam.service.AuthorService;
 import com.bilgeadam.service.BookService;
 
 import java.util.List;
+import java.util.Optional;
 
 public class AuthorController {
     AuthorService authorService;
@@ -22,4 +23,8 @@ public class AuthorController {
         return  authorService.findAll();
     }
 
+    public Optional<Author> findById(long id) {
+
+        return authorService.findById(id);
+    }
 }
