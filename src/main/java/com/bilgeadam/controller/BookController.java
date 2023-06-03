@@ -1,7 +1,10 @@
 package com.bilgeadam.controller;
 
 import com.bilgeadam.repository.entity.Book;
+import com.bilgeadam.repository.entity.User;
 import com.bilgeadam.service.BookService;
+
+import java.util.List;
 
 public class BookController {
 
@@ -15,5 +18,7 @@ public class BookController {
         return  bookService.save(book);
     }
 
-
+    public List<Book> findAll(){
+        return  bookService.findAll();
+    }
 }

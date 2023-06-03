@@ -1,4 +1,4 @@
-package com.bilgeadam.service;
+package com.bilgeadam.repository;
 
 import com.bilgeadam.repository.entity.User;
 import com.bilgeadam.utility.MyFactoryRepository;
